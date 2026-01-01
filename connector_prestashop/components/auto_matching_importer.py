@@ -198,7 +198,7 @@ class PrestashopMatchBatchImporter(AbstractComponent):
         chain_items = []
         if "limit" in filters:
             group_res = self._run_page(filters, **kwargs)
-            if self._use_job_queue:
+            if self._use_job_queue and group_res:
                 chain_items.append(group_res)
         else:
             page_number = 0
@@ -208,23 +208,25 @@ class PrestashopMatchBatchImporter(AbstractComponent):
             while total_records >= 1:
                 filters["limit"] = "%d,%d" % (offset, self._page_size)
                 group_res = self._run_page_splitter(filters, **kwargs)
-                if self._use_job_queue:
+                if self._use_job_queue and group_res:
                     chain_items.append(group_res)
                 total_records -= self._page_size
                 page_number += 1
                 offset = page_number * self._page_size
         if chain_items:
+            print(chain_items,"chain_itemschain_items")
             chain(*chain_items).delay()
         return True
 
     def _run_page_splitter(self, filters, **kwargs):
         model_obj = self.model
-        if self._use_job_queue:
-            model_obj = self.model.delayable(
-                priority=10,
-                description=f"Prepare Batch match import {self.model._name} with filters {filters}",
-                identity_key=identity_exact
-            )
+        if not self._use_job_queue:
+            return model_obj.import_batch_merge(self.backend_record, filters, **kwargs)
+        model_obj = self.model.delayable(
+            priority=10,
+            description=f"Prepare Batch match import {self.model._name} with filters {filters}",
+            identity_key=identity_exact
+        )
         return model_obj.import_batch_merge(self.backend_record, filters, **kwargs)
 
     def _run_page(self, filters, **kwargs):
@@ -236,7 +238,7 @@ class PrestashopMatchBatchImporter(AbstractComponent):
                 group_items.append(res)
         if group_items:
             return group(*group_items)
-        return True
+        return 
 
     def _import_record(self, record_id, **kwargs):
         """Import the record"""
