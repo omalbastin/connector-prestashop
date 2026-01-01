@@ -1,0 +1,17 @@
+<prestashop>
+	<specific_price_rule>
+		<id_shop required="true" format="isUnsignedId" />
+		<id_country required="true" format="isUnsignedId" />
+		<id_currency required="true" format="isUnsignedId" />
+		<id_group required="true" format="isUnsignedId" />
+		<name required="true" format="isCleanHtml" />
+		<from_quantity required="true" format="isUnsignedInt" />
+		<price required="true" format="isNegativePrice" />
+		<reduction required="true" format="isPrice" />
+		<reduction_tax required="true" format="isBool" />
+		<reduction_type required="true"
+			format="isReductionType" />
+		<from format="isDateFormat" />
+		<to format="isDateFormat" />
+	</specific_price_rule>
+</prestashop>

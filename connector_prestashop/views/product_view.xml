@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_normal_form_view_default_check" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="default_code" position="after">
+                <field invisible="product_variant_count &lt;= 1" name="default_on"/>
+                <field
+                        invisible="product_variant_count &lt;= 1"
+                        name="impact_price"
+                />
+            </field>
+            <xpath expr="//field[@name='lst_price']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_variant_easy_edit_view_check" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <field name="default_code" position="after">
+                <field invisible="product_variant_count &lt;= 1" name="default_on"/>
+            </field>
+            <xpath expr="//field[@name='lst_price']" position="after">
+                <field invisible="product_variant_count &lt;= 1" name="impact_price"/>
+            </xpath>
+            <xpath expr="//field[@name='lst_price']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_product_tree_prestashop_view" model="ir.ui.view">
+        <field name="name">product.product.prestashop.list</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="lst_price" position="after">
+                <field name="default_on"/>
+            </field>
+            <field name="lst_price" position="after">
+                <field name="impact_price"/>
+            </field>
+        </field>
+    </record>
+
+    <!--This is a product inherited form that will be dynamically populated -->
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook" position="inside">
+                <page name="prestashop" string="Prestashop">
+                    <div invisible="product_variant_count &lt;= 1">
+                    <p>
+                            To show Template binding go to:
+                        <button name="open_product_template" type="object"
+                                string="Product Template" class="oe_link"/>
+                    </p>
+                </div>
+                    <field name="prestashop_combinations_bind_ids"/>
+            </page>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!--This is a product inherited form that will be dynamically populated -->
+    <record id="product_template_default_category_form" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field
+                name="inherit_id"
+                ref="product_multi_category.product_template_only_form_view_add_categids"
+        />
+        <field name="arch" type="xml">
+            <field name="categ_ids" position="attributes">
+                <attribute name="widget">many2many_list</attribute>
+                <attribute name="nolabel">1</attribute>
+                <attribute name="colspan">2</attribute>
+                <!--				<field-->
+                <!--					name="prestashop_default_category_id"-->
+                <!--					domain="[('id', 'in', categ_ids and categ_ids[0] and categ_ids[0][2] or False)]"-->
+                <!--					options="{'no_create': True}"-->
+                <!--				/>-->
+            </field>
+        </field>
+    </record>
+    <record id="product_template_common_form" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook" position="inside">
+                <page name="prestashop" string="Prestashop">
+                    <group string="PrestaShop Bindings">
+                    <group>
+
+                        <field name="ps_default_code"/>
+                        <field name="ps_type"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+				<group string="Bindings" name="binding">
+                    <field name="prestashop_bind_ids" nolabel="1"
+                           context="{'default_reference':ps_default_code,'default_ps_name':name,'default_odoo_id':id}"/>
+				</group>
+            </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!--	<record id="view_product_template_img_inh" model="ir.ui.view">-->
+    <!--        <field name="name">Add images inherit</field>-->
+    <!--        <field name="model">product.template</field>-->
+    <!--        <field name="inherit_id" ref="product_multi_image.view_product_template_form_img_inh"/>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <xpath expr="//field[@name='image_ids']" position="attributes">-->
+    <!--				<attribute name="context">{-->
+    <!--                               'default_owner_model': 'product.template',-->
+    <!--                               'default_owner_id': id,-->
+    <!--                               'form_view_ref': 'product_multi_image.image_form_view',-->
+    <!--                               'kanban_view_ref': 'product_multi_image.image_kanban_view',-->
+    <!--                               'tree_view_ref': 'connector_prestashop.image_tree_view'-->
+    <!--                           }</attribute>-->
+    <!--				<attribute name="mode">tree</attribute>-->
+    <!--            </xpath>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <record id="product_connector_presta_form_view" model="ir.ui.view">
+        <field name="model">prestashop.product.template</field>
+        <field name="arch" type="xml">
+            <form string="prestashop fields">
+                <header>
+                    <button name="resync" type="object" string="Re-Import"/>
+                    <button name="re_export" type="object" string="Re-Export to PS"/>
+                    <button
+                            class="oe_highlight"
+                            name="manually_recompute_prestashop_qty"
+                            string="Export quantity"
+                            type="object"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="ps_name" required="1"/>
+                            <field name="link_rewrite"/>
+                            <field name="backend_id" readonly="1"/>
+                            <field name="default_shop_id" readonly="1" domain="[('backend_id','=',backend_id)]"/>
+                            <field name="reference" string="Reference" readonly="0"/>
+                            <field name="quantity" string="Quantity" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="upc"/>
+                            <field name="prestashop_id" readonly="0"/>
+                            <field name="odoo_id" invisible="0"/>
+                            <field name="ps_active"/>
+                            <field name="ps_active_date"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page string="Description" name="basic">
+                            <group string="Short Description">
+                                <field name="description_short_html" nolabel="1"/>
+                            </group>
+                            <group string="Description">
+                                <field name="description_html" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page name="other" string="Other Information">
+                            <group>
+                                <group>
+                                    <field name="ps_active_date"/>
+                                    <!--								<field name="always_available" />-->
+                                    <field name="available_for_order"/>
+                                    <field name="on_sale"/>
+                                </group>
+                                <group>
+                                    <field name="date_upd"/>
+                                    <field name="sale_ok"/>
+                                    <field name="show_price"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="product_connector_presta_tree_view" model="ir.ui.view">
+        <field name="model">prestashop.product.template</field>
+        <field name="arch" type="xml">
+            <list delete="0">
+                <field name="backend_id" string="Backend"/>
+                <field name="odoo_id" optional="hide"/>
+                <field name="ps_active_date" optional="hide"/>
+                <!-- 				<field name="prestashop_default_category_id" string="Category" /> -->
+                <field name="prestashop_id"/>
+                <field name="ps_name"/>
+                <field name="link_rewrite"/>
+                <field name="upc"/>
+                <field name="reference" string="Reference"/>
+                <field name="date_upd" column_invisible="1"/>
+                <field name="quantity"/>
+                <button name="manually_recompute_prestashop_qty" class="oe_highlight"
+                        type="object" string="Export quantity"/>
+                <button name="resync" type="object" string="Re-Import"/>
+                <button name="re_export" type="object" string="Re-Export"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="combination_connector_presta_form_view" model="ir.ui.view">
+        <field name="model">prestashop.product.product</field>
+        <field name="arch" type="xml">
+            <form string="prestashop fields">
+                <header>
+                    <button name="resync" type="object" string="Re-Import"/>
+                    <button name="re_export" type="object" string="Re-Export to PS"/>
+                    <button
+                            class="oe_highlight"
+                            name="manually_recompute_prestashop_qty"
+                            string="Export quantity"
+                            type="object"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="main_template_id"/>
+                            <field name="quantity"/>
+                        </group>
+                        <group>
+                            <field name="backend_id"/>
+                            <field name="prestashop_id"/>
+                            <field name="odoo_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="combination_connector_presta_tree_view" model="ir.ui.view">
+        <field name="model">prestashop.product.product</field>
+        <field name="arch" type="xml">
+            <list string="prestashop product">
+                <field name="backend_id" string="Backend"/>
+                <field name="main_template_id"/>
+                <field name="odoo_id" optional="show"/>
+                <field name="quantity"/>
+                <field name="prestashop_id"/>
+                <field name="reference"/>
+                <button name="manually_recompute_prestashop_qty" class="oe_highlight"
+                        type="object" string="Export quantity"/>
+                <button name="resync" type="object" string="Resync"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="prestashop_product_template_action" model="ir.actions.act_window">
+        <field name="name">Product (Template)</field>
+        <field name="res_model">prestashop.product.template</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="prestashop_product_product_action" model="ir.actions.act_window">
+        <field name="name">Combination (Variant)</field>
+        <field name="res_model">prestashop.product.product</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

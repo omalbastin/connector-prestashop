@@ -1,0 +1,15 @@
+<prestashop>
+	<group>
+		<reduction format="isFloat" />
+		<price_display_method required="true"
+			format="isPriceDisplayMethod" />
+		<show_prices format="isBool" />
+		<date_add format="isDate" />
+		<date_upd format="isDate" />
+		<name required="true" maxSize="32" format="isGenericName">
+			<language id="1"
+				xlink:href="https://www.minischoggi.ch/api/languages/1"
+				format="isUnsignedId" />
+		</name>
+	</group>
+</prestashop>
