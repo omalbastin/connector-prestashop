@@ -13,13 +13,11 @@ class ProductTemplateListener(Component):
 
     def _ps_needed_fields(self):
         res = super()._ps_needed_fields()
-        res.update("image_ids")
-        return res
+        return res + ["image_ids"]
 
 class PrestashopProductTemplateListener(Component):
     _inherit = 'prestashop.product.template.listener'
 
     def _ps_needed_fields(self):
         res = super()._ps_needed_fields()
-        res.update("image_ids")
-        return res
+        return res + ["image_ids"]
