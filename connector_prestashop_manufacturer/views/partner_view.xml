@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id"
+               ref="connector_prestashop.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='prestashop_bind_ids']/.."
+                   position="after">
+                <group string="PrestaShop Manufacturer Bindings">
+                    <separator string="Manufacturer" colspan="6"/>
+                    <field name="prestashop_manufacturer_bind_ids" nolabel="1" colspan="6"/>
+                    <separator string="Manufacturer address" colspan="6"/>
+                    <field name="prestashop_manufacturer_address_bind_ids" nolabel="1" colspan="6"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_prestashop_manufacturer_form" model="ir.ui.view">
+        <field name="name">prestashop.manufacturer.form</field>
+        <field name="model">prestashop.manufacturer</field>
+        <field name="arch" type="xml">
+            <form string="PrestaShop Manufacturer">
+                <group>
+                    <field name="backend_id"/>
+                    <field name="prestashop_id"/>
+                    <field name="name_ext"/>
+                    <field name="active_ext"/>
+                    <field name="date_add"/>
+                    <field name="date_upd"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_prestashop_manufacturer_tree" model="ir.ui.view">
+        <field name="name">prestashop.manufacturer.list</field>
+        <field name="model">prestashop.manufacturer</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="prestashop_id"/>
+                <field name="date_add"/>
+                <field name="date_upd"/>
+                <field name="backend_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_prestashop_manufacturer_address_form" model="ir.ui.view">
+        <field name="name">prestashop.manufacturer.address.form</field>
+        <field name="model">prestashop.manufacturer.address</field>
+        <field name="arch" type="xml">
+            <form string="PrestaShop Manufacturer address">
+                <group>
+                    <field name="backend_id"/>
+                    <field name="prestashop_id"/>
+                    <field name="date_add"/>
+                    <field name="date_upd"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_prestashop_manufacturer_address_tree" model="ir.ui.view">
+        <field name="name">prestashop.manufacturer.address.list</field>
+        <field name="model">prestashop.manufacturer.address</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="backend_id"/>
+                <field name="prestashop_id"/>
+                <field name="date_add"/>
+                <field name="date_upd"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_partner_prestashop_manufacturer" model="ir.actions.act_window">
+        <field name="name">PrestaShop Manufacturers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('prestashop_manufacturer_bind_ids','!=',False)]</field>
+    </record>
+
+    <record id="action_prestashop_manufacturer" model="ir.actions.act_window">
+        <field name="name">PrestaShop Manufacturers</field>
+        <field name="res_model">prestashop.manufacturer</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_prestashop_manufacturer"
+              name="Manufacturers"
+              parent="connector_prestashop.menu_prestashop_root"
+              sequence="50"
+              action="action_partner_prestashop_manufacturer"/>
+
+
+</odoo>
