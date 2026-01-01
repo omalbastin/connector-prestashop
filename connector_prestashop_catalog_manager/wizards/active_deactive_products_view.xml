@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="active_product_form">
+        <field name="name">active.product.form</field>
+        <field name="model">active.deactive.products</field>
+        <field name="arch" type="xml">
+            <form string="Export Products">
+                <seperator string="Active selected products"/>
+                <group>
+                    <field name="force_status"/>
+                </group>
+                <footer>
+                    <button name="active_products" type="object"
+                            string="Active" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="act_active_products" model="ir.actions.act_window">
+        <field name="name">Active Products in Prestashop</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="res_model">active.deactive.products</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="active_product_form"/>
+        <!--        <field name="search_view_id" ref="product_category_search_view"/>-->
+    </record>
+
+    <record model="ir.ui.view" id="deactive_product_form">
+        <field name="name">deactive.product.form</field>
+        <field name="model">active.deactive.products</field>
+        <field name="arch" type="xml">
+            <form string="Export Products">
+                <seperator string="Deactive Selected Products"/>
+                <footer>
+                    <button name="deactive_products" type="object"
+                            string="Deactive" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="act_deactive_products" model="ir.actions.act_window">
+        <field name="name">Deactive Products in Prestashop</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="res_model">active.deactive.products</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="deactive_product_form"/>
+        <!--        <field name="search_view_id" ref="product_category_search_view"/>-->
+    </record>
+
+    <record model="ir.ui.view" id="active_deactive_category_form">
+        <field name="name">active.deactive.category.form</field>
+        <field name="model">active.deactive.category</field>
+        <field name="arch" type="xml">
+            <form string="Activate Category">
+                <group>
+                    <label for="force_status" string="Active / Deactivate selected categories"/>
+                </group>
+                <group>
+                    <field name="force_status"/>
+                </group>
+                <footer>
+                    <button name="active_products" type="object"
+                            string="Active" class="oe_highlight"/>
+                    or
+                    <button name="deactive_products" type="object"
+                            string="Deactive" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="act_active_deactive_category_form" model="ir.actions.act_window">
+        <field name="name">Activate / Deactivate Categories in Prestashop</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="binding_model_id" ref="product.model_product_category"/>
+        <field name="res_model">active.deactive.category</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="active_deactive_category_form"/>
+        <!--        <field name="search_view_id" ref="product_category_search_view"/>-->
+    </record>
+
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="prestashop_product_product_form" model="ir.ui.view">
+        <field name="name">connector_prestashop.product.template.form
+        </field>
+        <field name="model">prestashop.product.template</field>
+        <field name="inherit_id"
+               ref="connector_prestashop.product_connector_presta_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='basic']" position="after">
+                <page string="Extra Information">
+                    <group>
+                        <group>
+                            <field name="meta_title"/>
+                            <field name="meta_description"/>
+                            <field name="minimal_quantity"/>
+                            <field name="additional_shipping_cost"/>
+
+
+                        </group>
+                        <group>
+                            <field name="online_only"/>
+                            <field name="available_now"/>
+                            <field name="available_later"/>
+                            <field name="available_date"/>
+
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="prestashop_product_template_search" model="ir.ui.view">
+        <field name="name">prestashop.product.template.search</field>
+        <field name="model">prestashop.product.template</field>
+        <field name="arch" type="xml">
+            <search string="prestashop product">
+                <field name="prestashop_id"/>
+                <field name="ps_name"/>
+                <field name="odoo_id"/>
+                <field name="link_rewrite"/>
+                <field name="reference" string="Reference"/>
+                <field name="upc"/>
+                <field name="ps_active"/>
+            </search>
+        </field>
+    </record>
+
+
+</odoo>

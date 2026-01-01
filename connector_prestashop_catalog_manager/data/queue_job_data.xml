@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="job_function_prestashop_reset_prestashop_id" model="queue.job.function">
+        <field
+                name="model_id"
+                ref="product.model_product_template"
+        />
+        <field name="method">reset_prestashop_id</field>
+        <field name="channel_id" ref="connector_prestashop.channel_prestashop_import"/>
+    </record>
+    <record id="job_function_prestashop_find_duplicates" model="queue.job.function">
+        <field
+                name="model_id"
+                ref="product.model_product_template"
+        />
+        <field name="method">find_prestashop_duplicates</field>
+        <field name="channel_id" ref="connector_prestashop.channel_prestashop_import"/>
+    </record>
+    <record id="job_function_prestashop_create_ps_records" model="queue.job.function">
+        <field
+                name="model_id"
+                ref="product.model_product_template"
+        />
+        <field name="method">create_ps_records</field>
+        <field name="channel_id" ref="connector_prestashop.channel_prestashop_export"/>
+    </record>
+
+
+</odoo>

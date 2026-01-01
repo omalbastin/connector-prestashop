@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_prestashop_backend_form" model="ir.ui.view">
+        <field name="name">prestashop.backend.form</field>
+        <field name="model">prestashop.backend</field>
+        <field name="inherit_id" ref="connector_prestashop.view_prestashop_backend_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='export']/group" position="after">
+                <group string="Exclude From Export">
+                    <field name="exclude_export_template_ids"
+                           widget="many2many" options="{'no_create':True}"/>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='export']/group" position="inside">
+                <button name="import_existing_categs"
+                        type="object"
+                        class="oe_highlight"
+                        string="Import Existing Categ"/>
+                <button name="export_all_categs" type="object"
+                        class="oe_highlight"
+                        string="Export Categories"/>
+
+
+                <button name="export_all_attribute" type="object"
+                        class="oe_highlight"
+                        string="Export Attributes"/>
+
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

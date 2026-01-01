@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wiz_prestashop_export_category,access_wiz_prestashop_export_category,model_wiz_prestashop_export_category,base.group_user,1,1,1,1
+ccess_active_deactive_products,access_active_deactive_products,model_active_deactive_products,base.group_user,1,1,1,1
+access_active_deactive_category,access_active_deactive_category,model_active_deactive_category,base.group_user,1,1,1,1
+access_sync_products,access_sync_products,model_sync_products,base.group_user,1,1,1,1
