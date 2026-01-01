@@ -69,12 +69,12 @@ class PrestashopProductImage(models.Model):
     ps_product_tmpl_id = fields.Many2one('prestashop.product.template',
                                          'Prestashop Product Template')
 
-    def import_product_image(self, backend, resource, product_tmpl_id, image_id,
+    def import_product_image(self, backend, resource, resource_id, image_id,
                              **kwargs):
         """Import a product image"""
         with backend.work_on(self._name) as work:
             importer = work.component(usage='prestashop.importer')
-            return importer.run(resource, product_tmpl_id, image_id)
+            return importer.run(resource, resource_id, image_id)
 
     def delete_record(self):
         self.ensure_one()

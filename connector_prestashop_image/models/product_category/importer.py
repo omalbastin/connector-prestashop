@@ -33,7 +33,10 @@ class ProductCategoryImporter(Component):
             self.import_images(binding)
 
     def import_images(self, binding):
-        self.env['prestashop.product.image'].with_delay(priority=10).import_product_image(
+        self.env['prestashop.product.image'].with_delay(
+            priority=10,
+            description=f"Import image for category with ID {self.prestashop_id}",
+        ).import_product_image(
             self.backend_record,
             'categories',
             self.prestashop_id,

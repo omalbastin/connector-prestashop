@@ -12,15 +12,15 @@
         <field name="model_id" ref="product.model_product_template"/>
     </record>
 
-    <record forcecreate="True" id="ir_cron_scheduler_reset_deleted_products" model="ir.cron">
-        <field name="name">PrestaShop - Reset ID Of Deleted Products</field>
-        <field name="active" eval="True"/>
-        <field name="user_id" ref="base.user_root"/>
-        <field name="interval_number">2</field>
-        <field name="interval_type">weeks</field>
-        <field name="state">code</field>
-        <field name="code">model._scheduler_reset_deleted_products()</field>
-        <field name="model_id" ref="product.model_product_template"/>
-    </record>
+<!--    <record forcecreate="True" id="ir_cron_scheduler_reset_deleted_products" model="ir.cron">-->
+<!--        <field name="name">PrestaShop - Reset ID Of Deleted Products</field>-->
+<!--        <field name="active" eval="True"/>-->
+<!--        <field name="user_id" ref="base.user_root"/>-->
+<!--        <field name="interval_number">2</field>-->
+<!--        <field name="interval_type">weeks</field>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="code">model._scheduler_reset_deleted_products()</field>-->
+<!--        <field name="model_id" ref="product.model_product_template"/>-->
+<!--    </record>-->
 
 </odoo>

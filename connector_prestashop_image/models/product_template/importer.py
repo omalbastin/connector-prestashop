@@ -57,7 +57,10 @@ class ProductTemplateImporter(Component):
             images = [images]
         for image in images:
             if image.get("id"):
-                delayable = self.env["prestashop.product.image"].with_delay(priority=10)
+                delayable = self.env["prestashop.product.image"].with_delay(
+                    priority=10,
+                    description=f"Import image for product with ID {prestashop_record['id']}",
+                )
                 delayable.import_product_image(
-                    self.backend_record, prestashop_record["id"], image["id"]
+                    self.backend_record, 'products', prestashop_record["id"], image["id"]
                 )

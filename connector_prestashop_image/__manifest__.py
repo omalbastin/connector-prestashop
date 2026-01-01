@@ -26,7 +26,10 @@ Sync Images from Prestashop
     "data": [
         "security/ir.model.access.csv",
         "data/queue_job_data.xml",
+        "views/prestashop_backend_view.xml",
+        "views/product_view.xml",
         "views/image_view.xml",
+
     ],
     "demo": [],
     "auto_install": True,
