@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_prestashop_backend_form" model="ir.ui.view">
+        <field name="name">prestashop.backend.form</field>
+        <field name="model">prestashop.backend</field>
+        <field name="inherit_id"
+               ref="connector_prestashop.view_prestashop_backend_form" />
+        <field name="arch" type="xml">
+            <field name="product_merge_based_on" position="after">
+                <label for="import_export_images" />
+                    <div>
+                        <field name="import_export_images" />
+
+                    </div>
+            </field>
+            <xpath expr="//page[@name='export']/group" position="inside">
+                <button invisible="import_export_images not in ['export', 'import_export']"
+                                    class="oe_highlight"
+                                    name="export_all_images"
+                                    string="Export All Images"
+                                    type="object"
+                                />
+
+                <button name="button_export_categ_images"
+                        invisible="import_export_images not in ['export', 'import_export']"
+                        type="object"
+                        string="Export Category Images"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,35 @@
+<odoo noupdate="1">
+
+    <record
+        id="job_function_prestashop_import_product_image"
+        model="queue.job.function"
+    >
+        <field
+            name="model_id"
+            ref="model_prestashop_product_image"
+        />
+        <field name="method">import_product_image</field>
+        <field name="channel_id" ref="connector_prestashop.channel_prestashop_import" />
+    </record>
+    <record
+        id="job_function_prestashop_product_image_variant"
+        model="queue.job.function"
+    >
+        <field
+            name="model_id"
+            ref="connector_prestashop.model_prestashop_product_product"
+        />
+        <field name="method">set_product_image_variant</field>
+        <field name="channel_id" ref="connector_prestashop.channel_prestashop_import" />
+    </record>
+
+<!--    <record id="job_function_prestashop_delete_extra_images" model="queue.job.function">-->
+<!--        <field-->
+<!--                name="model_id"-->
+<!--                ref="product.model_product_template"-->
+<!--        />-->
+<!--        <field name="method">job_delete_extra_images_from_each_ps_product</field>-->
+<!--        <field name="channel_id" ref="connector_prestashop.channel_prestashop_export"/>-->
+<!--    </record>-->
+
+</odoo>

@@ -1,0 +1,46 @@
+<!-- © 2016 Sergio Teruel <sergio.teruel@tecnativa.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3). -->
+<odoo>
+
+    <record id="image_prestashop_binding_form_view" model="ir.ui.view">
+        <field name="name">Multi image prestashop binding form</field>
+        <field name="model">prestashop.product.image</field>
+        <field name="inherit_id" ref="base_multi_image.image_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='extension']" position="after">
+                <field name="front_image"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="PrestaShop Binding">
+                    <field name="prestashop_bind_ids" nolabel="1">
+                        <list>
+                            <field name="backend_id" />
+                            <field name="odoo_id" />
+                            <button name="resync" type="object" string="Re-Import" />
+				            <button name="re_export" type="object" string="Re-Export" />
+
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="image_tree_view" model="ir.ui.view">
+        <field name="name">Multi image tree</field>
+        <field name="model">base_multi_image.image</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <list string="Images">
+                <field name="sequence" widget="handle"/>
+                <field name="image_128" widget="image" string="Image"/>
+                <field name="name"/>
+                <field name="storage"/>
+                <field name="owner_model"/>
+                <field name="owner_id"/>
+
+            </list>
+        </field>
+    </record>
+</odoo>
